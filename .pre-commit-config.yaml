@@ -1,0 +1,46 @@
+# Pre-commit configuration for nano-vllm project
+# 使用 isort 和 black 进行 Python 代码格式化和导入排序
+
+repos:
+  # isort - Python 导入语句排序
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        name: isort (python)
+        args: ["--profile", "black", "--line-length", "88"]
+
+  # black - Python 代码格式化
+  - repo: https://github.com/psf/black
+    rev: 24.4.2
+    hooks:
+      - id: black
+        name: black
+        language_version: python3
+        args: ["--line-length", "88"]
+
+  # 额外的代码质量检查（可选）
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+        name: 移除行尾空格
+      - id: end-of-file-fixer
+        name: 确保文件以换行符结尾
+      - id: check-yaml
+        name: 检查 YAML 文件语法
+      - id: check-toml
+        name: 检查 TOML 文件语法
+      - id: check-json
+        name: 检查 JSON 文件语法
+      - id: check-merge-conflict
+        name: 检查合并冲突标记
+      - id: check-added-large-files
+        name: 检查大文件
+        args: ['--maxkb=1000']
+
+# 配置说明:
+# - isort: 自动排序和格式化 import 语句
+# - black: 自动格式化 Python 代码
+# - 行长度设置为 88 字符（black 默认值）
+# - isort 使用 black 兼容的配置文件

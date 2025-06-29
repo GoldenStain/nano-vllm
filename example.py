@@ -1,11 +1,15 @@
 # done
 import os
-from nanovllm import LLM, SamplingParams
+
 from transformers import AutoTokenizer
+
+from nanovllm import LLM, SamplingParams
 
 
 def main():
-    path = os.path.expanduser("/home/xym/.cache/huggingface/hub/models--Qwen--Qwen3-0.6B/snapshots/e6de91484c29aa9480d55605af694f39b081c455")
+    path = os.path.expanduser(
+        "/home/xym/.cache/huggingface/hub/models--Qwen--Qwen3-0.6B/snapshots/e6de91484c29aa9480d55605af694f39b081c455"
+    )
     tokenizer = AutoTokenizer.from_pretrained(path)
     llm = LLM(path, enforce_eager=True, tensor_parallel_size=1)
 
@@ -19,7 +23,7 @@ def main():
             [{"role": "user", "content": prompt}],
             tokenize=False,
             add_generation_prompt=True,
-            enable_thinking=True
+            enable_thinking=True,
         )
         for prompt in prompts
     ]
